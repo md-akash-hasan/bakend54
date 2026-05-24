@@ -78,14 +78,7 @@ async function run() {
     });
     app.get(
       "/destinations",
-      (req, res, next) => {
-        let headerss = req.headers.authorization;
-        if (headerss === "des") {
-          next();
-        } else {
-          return res.status(401).json({ message: "Unauthorized" });
-        }
-      },
+
       async (req, res) => {
         const result = await destinationCollaction.find().toArray();
         res.send(result);
