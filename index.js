@@ -84,7 +84,7 @@ async function run() {
         res.send(result);
       },
     );
-    app.get("/destinations/:id", verify, async (req, res) => {
+    app.get("/destinations/:id", async (req, res) => {
       const { id } = req.params;
       const result = await destinationCollaction.findOne({
         _id: new ObjectId(id),
