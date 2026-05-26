@@ -33,6 +33,7 @@ async function run() {
         return res.status(401).json({ message: "Token not found" });
       }
       const token = authHeades.split(" ")[1];
+      console.log(token);
       if (!token) {
         return res.status(401).json({ message: "Token not found" });
       }
@@ -47,6 +48,10 @@ async function run() {
         return res.status(401).json({ message: "Token not found" });
       }
     };
+    app.get("/feature", async (req, res) => {
+      let result = await destinationCollaction.find().limit(4).toArray();
+      res.json(result);
+    });
 
     app.get("/bookingData/:userId", verify, async (req, res) => {
       let { userId } = req.params;
@@ -54,7 +59,7 @@ async function run() {
       res.json(result);
     });
 
-    app.delete("/destinatondelete/:userId", async (req, res) => {
+    app.delete("/destinatondelete/:userId", verify, async (req, res) => {
       let { userId } = req.params;
       console.log(userId);
       let result = await bookingcollection.deleteOne({
